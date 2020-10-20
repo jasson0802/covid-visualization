@@ -2,6 +2,11 @@ let movers = [];
 
 // Líquido
 let liquid;
+let isRadial = false;
+
+function dibujarRadial (){
+  isRadial = !isRadial;
+}
 
 function setup() {
   createCanvas(640, 360);
@@ -11,7 +16,14 @@ function setup() {
 }
 
 function draw() {
-  background(127);
+
+  if(isRadial){
+    background(127);
+  }
+  else{
+    background(0);
+  }
+
 
   // Dibujar el agua
   liquid.display();
@@ -38,7 +50,6 @@ function draw() {
   }
 
 }
-
 
 function mousePressed() {
   reset();
