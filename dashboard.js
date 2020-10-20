@@ -1,53 +1,25 @@
-/* globals Chart:false, feather:false */
+const fileSelector = document.getElementById('file-selector');
+fileSelector.addEventListener('change', (event) => {
+  const fileList = event.target.files;
 
-(function () {
-  'use strict'
+  var fileInput = fileList[0];
 
-  feather.replace()
+  Papa.parse(fileInput, {
+    complete: function(results) {
+      let datosCsv = results.data;
+      let headers = datosCsv[0];
+      let objetosJson = [];
 
-  // Graphs
-  var ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
-      },
-      legend: {
-        display: false
+      for(var registro of datosCsv.slice(1)){
+        var objeto = {};
+        
+        for(var propiedad of headers){
+          objeto[propiedad] = registro[headers.indexOf(propiedad)]; 
+        }
+        objetosJson.push(objeto);
       }
+
+      console.log("ESTOS SON LOS OBJETOS EN JSON ", objetosJson);
     }
-  })
-})()
+  });
+});
