@@ -3,11 +3,12 @@ const checkboxRadial = document.getElementById('checkboxRadial');
 const checkboxTreeMap = document.getElementById('checkboxTreeMap');
 
 let colorFondo = 155;
-var treevis;
+var treevis, info;
 
 checkboxRadial.addEventListener('change', (event) => {
     if (event.target.checked) {
       checkboxTreeMap.checked = 0;
+      setup();
     } else {
         //checkboxTreeMap.checked = 0;
     }
@@ -16,6 +17,7 @@ checkboxRadial.addEventListener('change', (event) => {
 checkboxTreeMap.addEventListener('change', (event) => {
     if (event.target.checked) {
         checkboxRadial.checked = 0;
+        setup();
     } else {
       
     }
@@ -63,46 +65,27 @@ function dibujarRadial(){
     }
 }
 
-function dibujarTreeMap(){
-    var properties = {
-        children: "children",
-        label: "name",
-        value: "size"
-    };
-
-    var data = treemapActivos;
-
-    treevis = createTreemap(
-        data, properties);
-    treevis.setInset(3);
-
-    treevis.onSelected(function(v, name, x, y, w, h, level, maxLevel, numChildren) {
-        select("#info").html(name);
-      });
-
-    treevis.draw();
-}
-
-function mouseClicked() {
-    console.log("treevis ", treevis);
-    if (mouseButton == RIGHT) {
-      // navigate out
-      treevis.up();
-    } else {
-      // navigate in
-      treevis.select(mouseX, mouseY);
-    }
-}
-
 function setup() {
-    var w = 1000;
+    var w = 800;
     var h = 600;
-    _mouseAction = false;
+     _mouseAction = false;
     createCanvas(w, h);
-    info = createDiv("Nothing selected");
+    info = createDiv("");
     info.id("info");
     info.position(10, h + 10);
 
+    background(255);
+    treevis = createTreemap(
+    treemapActivos, {
+      children: "children",
+      label: "name",
+      value: "size"
+    });
+
+    treevis.setInset(3);
+    treevis.onSelected(function(v, name, x, y, w, h, level, maxLevel, numChildren) {
+    select("#info").html(name);
+    });
 }
   
 function draw() {
@@ -113,6 +96,14 @@ function draw() {
     }
 
     if(checkboxTreeMap.checked){
-        dibujarTreeMap();
+        treevis.draw();
     }
 }
+
+function mousePressed() {
+    if (mouseButton == RIGHT) {
+      treevis.up();
+    } else {
+      treevis.select(mouseX, mouseY);
+    }
+  }
