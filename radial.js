@@ -66,13 +66,13 @@ function dibujarRadial(){
 }
 
 function setup() {
-    var w = 800;
-    var h = 600;
+    var w = 1200;
+    var h = 1200;
      _mouseAction = false;
     createCanvas(w, h);
     info = createDiv("");
     info.id("info");
-    info.position(10, h + 10);
+    info.position(900,325);
 
     background(255);
     treevis = createTreemap(
