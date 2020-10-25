@@ -72,7 +72,11 @@ function setup() {
     createCanvas(w, h);
     info = createDiv("");
     info.id("info");
-    info.position(900,325);
+    info.position(800,325);
+
+    info = createDiv("");
+    info.id("cant");
+    info.position(960,325);
 
     background(255);
     treevis = createTreemap(
@@ -85,7 +89,10 @@ function setup() {
     treevis.setInset(3);
     treevis.onSelected(function(v, name, x, y, w, h, level, maxLevel, numChildren) {
     select("#info").html(name);
+    select("#cant").html(v.size);
     });
+
+
 }
   
 function draw() {
