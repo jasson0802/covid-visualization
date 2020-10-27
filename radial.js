@@ -117,11 +117,11 @@ function setup() {
     createCanvas(w, h);
     info = createDiv("");
     info.id("info");
-    info.position(800,325);
+    info.position(800,250);
 
     info = createDiv("");
     info.id("cant");
-    info.position(960,325);
+    info.position(960,250);
 
     background(255);
     treevis = createTreemap(
@@ -139,16 +139,11 @@ function setup() {
 }
 
 
-
-
-
-
-
 function dibujarRadial(treecostarica){
     colorFondo = 255;
-    firstWalk(treecostarica,0,0,2*Math.PI,50);
-    secondWalk(treecostarica,300,200);
-    drawLinks(treecostarica);
+    firstWalk(arbolRadial,0,0,2*Math.PI, 200);
+    secondWalk(arbolRadial,600,600);
+    drawLinks(arbolRadial);
     
 }
 
@@ -172,12 +167,11 @@ function firstWalk(v,r,b,e,t){
       
       for (var hijos of v.children){
         var u = hijos;
-        console.log(u);
+        //console.log(u);
         firstWalk(u,r+t,a,a+s,t);
         a = a + s;
       }
     }
-    console.log("MAEEE",v);
 }
 
 function secondWalk(v,dx,dy){
@@ -193,7 +187,7 @@ function secondWalk(v,dx,dy){
  
 function drawLinks(node){
   if(node.children!=undefined){
-    console.log(treecostarica);
+    //console.log(treecostarica);
     circle(node.x,node.y,10);
     for (var hijos of node.children){
       var child = hijos;
