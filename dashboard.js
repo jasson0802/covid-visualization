@@ -47,11 +47,14 @@ const actualizarPesos = (arbol) => {
       }
       arbol[provincia][canton]["valor"] = pesoCanton;
       pesoProvincia = pesoProvincia + pesoCanton;
+
     }
     arbol[provincia]["valor"] = pesoProvincia;
     total = total + pesoProvincia;
+
   }
   arbol["valor"] = total;
+
 }
 
 const crearTreeVis= (arbol)=>{
@@ -103,11 +106,9 @@ fileSelector.addEventListener('change', (event) => {
         actualizarPesos(arbol);
         //objetosJson.push(objeto);
       }
-
       //console.log("ESTOS SON LOS OBJETOS EN JSON ", objetosJson);
       arbolActivos = arbol;
       console.log("ESTE ES EL ARBOL", arbolActivos);
-
       treemapActivos = crearTreeVis(arbol);
     }
   });

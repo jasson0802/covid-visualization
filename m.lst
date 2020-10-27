@@ -1,106 +1,22 @@
 
+const checkboxRadial = document.getElementById('checkboxRadial');
+                               ^
+radial.js(2) : Error: undefined identifier 'document'
 
+const checkboxTreeMap = document.getElementById('checkboxTreeMap');
+                                              ^
+radial.js(3) : Error: not a struct or union type
 
 
+let colorFondo = 155;
+             ^
+radial.js(5) : Error: missing ',' between declaration of 'let' and 'colorFondo'
 
+var treevis, info;
+          ^
+radial.js(6) : Error: missing ',' between declaration of 'var' and 'treevis'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var treecostarica = {
+                ^
+radial.js(7) : Error: missing ',' between declaration of 'var' and 'treecostarica'
 
