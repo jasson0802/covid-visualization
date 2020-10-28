@@ -90,6 +90,9 @@ const crearArbolRadial = (arbol) => {
     a: 0,
     x: 0,
     y: 0,
+    leaves: 8,
+    isLeave: false,
+    isFacing: false,
     children: []
   };
 
@@ -101,10 +104,14 @@ const crearArbolRadial = (arbol) => {
       a: 0,
       x: 0,
       y: 0,
-      children: []
+      children: [],
+      leaves: 0,
+      isLeave: false,
+      isFacing: false
     };
 
     for (var canton of Object.keys(arbol[provincia])) {
+      var distritoFacing = false;
       var cantonActual = {
         id: canton,
         acumulado: arbol[provincia][canton].valor,
@@ -112,7 +119,10 @@ const crearArbolRadial = (arbol) => {
         a: 0,
         x: 0,
         y: 0,
-        children: []
+        children: [],
+        leaves: 0,
+        isLeave: false,
+        isFacing: false
       };
       for (var distrito of Object.keys(arbol[provincia][canton])) {
         if (distrito != "valor") {
@@ -123,13 +133,22 @@ const crearArbolRadial = (arbol) => {
             a: 0,
             x: 0,
             y: 0,
-            children: []
+            children: [],
+            leaves: 0,
+            isLeave: true,
+            isFacing: distritoFacing
           };
+          tree.leaves = tree.leaves + 1;
+          provinciaActual.leaves = provinciaActual.leaves + 1;
+          cantonActual.leaves = cantonActual.leaves + 1;
           cantonActual.children.push(distritoActual);
+          distritoFacing = !distritoFacing;
         }
       }
       if (canton != "valor") {
-        provinciaActual.children.push(cantonActual)
+        tree.leaves = tree.leaves + 1;
+        provinciaActual.leaves = provinciaActual.leaves + 1;
+        provinciaActual.children.push(cantonActual);
       }
     }
     if (provincia != "valor") {
