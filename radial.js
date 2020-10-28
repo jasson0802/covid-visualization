@@ -127,11 +127,11 @@ function setup() {
   createCanvas(w, h);
   info = createDiv("");
   info.id("info");
-  info.position(800, 250);
+  info.position(1350, 100);
 
   info = createDiv("");
   info.id("cant");
-  info.position(960, 250);
+  info.position(1350, 150);
 
   background(255);
   treevis = createTreemap(
@@ -159,7 +159,45 @@ function dibujarRadial(treecostarica) {
   firstWalk(arbolRadial, 0, 0, 2 * Math.PI, 150);
   secondWalk(arbolRadial, 500, 500);
   drawLinks(arbolRadial);
-
+  fill(0,0,0);
+  text('1-50',810,13);
+  fill(223, 229, 235);
+  rect(900, 0, 70, 20);
+  /-------/
+  fill(0,0,0);
+  text('51-100',810,33);
+  fill(191, 204, 215);
+  rect(900, 20, 70, 20);
+  /-------/
+  fill(0,0,0);
+  text('101-300',810,53);
+  fill(159, 178, 195);
+  rect(900, 40, 70, 20);
+  /-------/
+  fill(0,0,0);
+  text('301-500',810,73);
+  fill(128, 153, 176);
+  rect(900, 60, 70, 20);
+  /-------/
+  fill(0,0,0);
+  text('501-1800',810,93);
+  fill(96, 127, 156);
+  rect(900, 80, 70, 20);
+  /-------/
+  fill(0,0,0);
+  text('1801-2900',810,113);
+  fill(64, 101, 136);
+  rect(900, 100, 70, 20);
+  /-------/
+  fill(0,0,0);
+  text('2901-8900',810,133);
+  fill(32, 76, 116);
+  rect(900, 120, 70, 20);
+  /------/
+  fill(0,0,0);
+  text('8901-o mas',810,153);
+  fill(0, 50, 96);
+  rect(900, 140, 70, 20);
 }
 
 /* firstWalk representan: el nodo a procesar,
@@ -207,21 +245,36 @@ function secondWalk(v, dx, dy) {
 function drawLinks(node) {
   if (node.children != undefined) {
     //console.log(treecostarica);
+    
     circle(node.x, node.y, 10);
     for (var hijos of node.children) {
       var child = hijos;
       line(node.x, node.y, child.x, child.y);
-
-      if(1 <= child.acumulado && child.acumulado <= 20){
-        fill(0, 255, 0);
+      if(1 <= child.acumulado && child.acumulado <= 50){
+        fill(223, 229, 235);
+      }
+      if(51 <= child.acumulado && child.acumulado <= 100){
+        fill(191, 204, 215);
       }
 
-      if(20 < child.acumulado && child.acumulado <= 100){
-        fill(250, 255, 0);
+      if(101 <= child.acumulado && child.acumulado <= 300){
+        fill(159, 178, 195);
       }
 
-      if(100 < child.acumulado){
-        fill(255, 0, 0);
+      if(301 <= child.acumulado && child.acumulado <= 500){
+        fill(128, 153, 176);
+      }
+      if(501 <= child.acumulado && child.acumulado <= 1800){
+        fill(96, 127, 156);
+      }
+      if(1801 <= child.acumulado && child.acumulado <= 2900){
+        fill(64, 101, 136);
+      }
+      if(2901 <= child.acumulado && child.acumulado <= 8900){
+        fill(32, 76, 116);
+      }
+      if(8901 < child.acumulado && child.acumulado <= 9999){
+        fill(0, 50, 96);
       }
       coordenadasObj.push({x: child.x, y: child.y, id: child.id, acumulado: child.acumulado});
 
@@ -255,10 +308,12 @@ function draw() {
 
     if (datosAMostrar && datosAMostrar.id){
       //Si encontro dato dibujar rectangulo y texto
-
-      rect(50, 50, 70, 70);
+      fill(223, 229, 235);
+      rect(50, 50, 90, 20);
       fill(0, 0, 0);
-      text(datosAMostrar.id, 50, 50);
+      textSize(50);
+      text(datosAMostrar.id, 50, 40);
+      textSize(12);
       text("Casos: " + datosAMostrar.acumulado, 50, 65);
     }
   }
