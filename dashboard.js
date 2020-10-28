@@ -85,7 +85,7 @@ const crearTreeVis = (arbol) => {
 const crearArbolRadial = (arbol) => {
   var tree = { 
     id: "Costa Rica",
-    acumulado: 0,
+    acumulado: arbol.valor,
     r: 0,
     a: 0,
     x: 0,
