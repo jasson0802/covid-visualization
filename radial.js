@@ -119,8 +119,10 @@ function casosFallecidos() {
   console.log(estadoActivosCheckBox);
 }
 function setup() {
-  var w = 800;
-  var h = 800;
+
+  var w = 1000;
+  var h = 1000;
+
   _mouseAction = false;
   createCanvas(w, h);
   info = createDiv("");
@@ -150,12 +152,12 @@ function setup() {
 function dibujarRadial(treecostarica) {
   //colorFondo = 255;
 
-  red = 46;
-  green = 144;
-  blue = 219;
+  red = 255;
+  green = 255;
+  blue = 255;
 
-  firstWalk(arbolRadial, 0, 0, 2 * Math.PI, 100);
-  secondWalk(arbolRadial, 400, 400);
+  firstWalk(arbolRadial, 0, 0, 2 * Math.PI, 150);
+  secondWalk(arbolRadial, 500, 500);
   drawLinks(arbolRadial);
 
 }
@@ -211,17 +213,16 @@ function drawLinks(node) {
       line(node.x, node.y, child.x, child.y);
 
       if(1 <= child.acumulado && child.acumulado <= 20){
-        fill(46, 219, 81);
+        fill(0, 255, 0);
       }
 
       if(20 < child.acumulado && child.acumulado <= 100){
-        fill(247, 132, 30);
+        fill(250, 255, 0);
       }
 
       if(100 < child.acumulado){
-        fill(196, 68, 68);
+        fill(255, 0, 0);
       }
-
       coordenadasObj.push({x: child.x, y: child.y, id: child.id, acumulado: child.acumulado});
 
       circle(child.x, child.y, 10);
