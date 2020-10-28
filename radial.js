@@ -3,7 +3,14 @@ const checkboxRadial = document.getElementById('checkboxRadial');
 const checkboxTreeMap = document.getElementById('checkboxTreeMap');
 
 let colorFondo = 155;
+let red = 0;
+let green = 0;
+let blue = 0;
+
+let coordenadasObj = [];
+
 var treevis, info;
+
 var treecostarica = {
   "id": "Costa Rica",
   "r": 0,
@@ -62,6 +69,7 @@ var treecostarica = {
     }
   ]
 };
+
 //console.log(treecostarica);
 //var v = treecostarica;
 //console.log(v);
@@ -111,8 +119,8 @@ function casosFallecidos() {
   console.log(estadoActivosCheckBox);
 }
 function setup() {
-  var w = 1200;
-  var h = 1200;
+  var w = 800;
+  var h = 800;
   _mouseAction = false;
   createCanvas(w, h);
   info = createDiv("");
@@ -140,9 +148,14 @@ function setup() {
 
 
 function dibujarRadial(treecostarica) {
-  colorFondo = 255;
-  firstWalk(arbolRadial, 0, 0, 2 * Math.PI, 200);
-  secondWalk(arbolRadial, 600, 600);
+  //colorFondo = 255;
+
+  red = 46;
+  green = 144;
+  blue = 219;
+
+  firstWalk(arbolRadial, 0, 0, 2 * Math.PI, 100);
+  secondWalk(arbolRadial, 400, 400);
   drawLinks(arbolRadial);
 
 }
@@ -163,20 +176,19 @@ function firstWalk(v, r, b, e, t) {
   v.r = r;
   v.a = (b + e) / 2;
 
-  if (v.id == "Cangrejal") {
-    console.log("ESTE ES a, ", a);
-    console.log("ESTE ES r, ", r);
-  }
-
   s = (e - b) / v.leaves;
 
   var a = b;
-  if (v.leaves != 0) {
     for (var hijos of v.children) {
       var u = hijos;
-      firstWalk(u, r + t, a, a + s * u.leaves, t);
+
+      if (u.leaves != 0) {
+        firstWalk(u, r + t, a, a + s * u.leaves, t);
+      }
+      else{
+        firstWalk(u, r + t, a, a + s, t);
+      }
       a = a + s * u.leaves;
-    }
   }
 }
 
@@ -197,19 +209,57 @@ function drawLinks(node) {
     for (var hijos of node.children) {
       var child = hijos;
       line(node.x, node.y, child.x, child.y);
+
+      if(1 <= child.acumulado && child.acumulado <= 20){
+        fill(46, 219, 81);
+      }
+
+      if(20 < child.acumulado && child.acumulado <= 100){
+        fill(247, 132, 30);
+      }
+
+      if(100 < child.acumulado){
+        fill(196, 68, 68);
+      }
+
+      coordenadasObj.push({x: child.x, y: child.y, id: child.id, acumulado: child.acumulado});
+
       circle(child.x, child.y, 10);
       drawLinks(child);
     }
   }
 }
 
+function revisarCoordenadas(x, y){
+  var coordX = Math.round(x);
+  var coordY = Math.round(y);
+
+  var dato = coordenadasObj.find(function (coordenadas) {
+    return ((coordX-2 <= Math.round(coordenadas.x) && Math.round(coordenadas.x) <= coordX+2)  && 
+    (coordY-2 <= Math.round(coordenadas.y) && Math.round(coordenadas.y) <= coordY+2));
+  }
+ );
+
+  return dato;
+}
 
 function draw() {
-  background(colorFondo, 204, 0);
+  background(red, green, blue);
 
   if (checkboxRadial.checked) {
     dibujarRadial(treecostarica);
+    
+    //Revisar posicion del mouse y buscar dato en esas coordenadas
+    var datosAMostrar = revisarCoordenadas(mouseX, mouseY);
 
+    if (datosAMostrar && datosAMostrar.id){
+      //Si encontro dato dibujar rectangulo y texto
+
+      rect(50, 50, 70, 70);
+      fill(0, 0, 0);
+      text(datosAMostrar.id, 50, 50);
+      text("Casos: " + datosAMostrar.acumulado, 50, 65);
+    }
   }
 
   if (checkboxTreeMap.checked) {

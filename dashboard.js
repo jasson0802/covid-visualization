@@ -134,7 +134,7 @@ const crearArbolRadial = (arbol) => {
             x: 0,
             y: 0,
             children: [],
-            leaves: 0,
+            leaves: 1,
             isLeave: true,
             isFacing: distritoFacing
           };
