@@ -3,15 +3,26 @@ let treemapActivos = {};
 let arbolRadial = {};
 
 const insertarArbol = (objeto, arbol) => {
+
+  var fechaActual = new Date();
+  var dd = String(fechaActual.getDate()).padStart(2, '0');
+  var mm = String(fechaActual.getMonth() + 1).padStart(2, '0');
+  var yyyy = fechaActual.getFullYear();
+
+  fechaActual =  dd + '/' + mm + '/' + yyyy;
+
+  var fecha = document.getElementById("datepicker").value;
+  fecha = fecha? fecha: fechaActual;
+
   if (arbol[objeto.provincia]) {
     if (arbol[objeto.provincia][objeto.canton]) {
       if (arbol[objeto.provincia][objeto.canton][objeto.distrito]) {
-        arbol[objeto.provincia][objeto.canton][objeto.distrito] = parseInt(objeto["20/10/2020"]);
+        arbol[objeto.provincia][objeto.canton][objeto.distrito] = parseInt(objeto[fecha]);
       }
       else {
         arbol[objeto.provincia][objeto.canton][objeto.distrito] = {
         };
-        arbol[objeto.provincia][objeto.canton][objeto.distrito]["valor"] = parseInt(objeto["20/10/2020"]);
+        arbol[objeto.provincia][objeto.canton][objeto.distrito]["valor"] = parseInt(objeto[fecha]);
       }
     }
     else {
@@ -19,7 +30,7 @@ const insertarArbol = (objeto, arbol) => {
       }
       arbol[objeto.provincia][objeto.canton][objeto.distrito] = {
       };
-      arbol[objeto.provincia][objeto.canton][objeto.distrito]["valor"] = parseInt(objeto["20/10/2020"]);
+      arbol[objeto.provincia][objeto.canton][objeto.distrito]["valor"] = parseInt(objeto[fecha]);
     }
   }
   else {
@@ -29,7 +40,7 @@ const insertarArbol = (objeto, arbol) => {
     }
     arbol[objeto.provincia][objeto.canton][objeto.distrito] = {
     };
-    arbol[objeto.provincia][objeto.canton][objeto.distrito]["valor"] = parseInt(objeto["20/10/2020"]);
+    arbol[objeto.provincia][objeto.canton][objeto.distrito]["valor"] = parseInt(objeto[fecha]);
   };
 
   return arbol;
